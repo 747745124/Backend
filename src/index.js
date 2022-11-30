@@ -21,13 +21,12 @@ app.use((req, res, next) => {
 });
 
 //the order is important
-// app.use((req, res, next) => {
-//     if (req.session.user) { next(); }//use middleware to block sessions
-//     else { res.status(401).send({ message: "Not logged in" }); }
-// })
+
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+require('./strategies/local')
 
 app.use('/groceries', groceryRoute);//register the route with prefix
 app.use('/markets', marketsRoute);

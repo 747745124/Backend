@@ -1,11 +1,20 @@
 const { Router, response } = require('express')
 const User = require('../database/schemas/User')
+const passport = require('passport')
 const { hashPassword, comparePassword } = require('../utils/helper')
 const router = Router();
 const { authLoginController } = require('../controllers/auth')
 
+
 //unit tests
-router.post('/login', authLoginController);
+// router.post('/login', authLoginController);
+
+//local strategy
+router.post('/login', passport.authenticate('local'), (req, res) => {
+    console.log('logged in');
+    res.send(200);
+})
+
 
 // router.post('/login', async (req, res) => {
 //     const { email, password } = req.body;

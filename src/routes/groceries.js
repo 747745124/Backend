@@ -16,6 +16,15 @@ const itemArray = [
     },
 ]
 
+router.use((req, res, next) => {
+
+    if (req.user) {
+        console.log('welcome to the grocery');
+        next();
+    }//use middleware to block sessions
+    else { res.status(401).send({ message: "Not logged in" }); }
+})
+
 //path + handler
 router.get('/', (req, res) => {
     res.cookie('visited', true, { maxAge: 10000 });
