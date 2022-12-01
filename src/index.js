@@ -29,10 +29,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    console.log(memoryStore);
-    next();
-})
+// app.use((req, res, next) => {
+//     console.log(memoryStore);
+//     next();
+// })
 
 //the order is important
 
@@ -40,8 +40,8 @@ app.use((req, res, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-require('./strategies/local')
-
+// require('./strategies/local')
+require('./strategies/discord')
 app.use('/groceries', groceryRoute);//register the route with prefix
 app.use('/markets', marketsRoute);
 app.use('/auth', authRoute);
