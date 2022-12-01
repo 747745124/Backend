@@ -1,4 +1,5 @@
 *.py
 data.json
 .vscode
-coverage
+coverage/
+node_modules/

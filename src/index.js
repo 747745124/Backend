@@ -3,22 +3,36 @@ const groceryRoute = require('./routes/groceries')
 const marketsRoute = require('./routes/markets')
 const authRoute = require('./routes/auth')
 const passport = require('passport')
+const MongoStore = require('connect-mongo')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 
 const app = express();
 const PORT = 8080;
+// const memoryStore = new session.MemoryStore();
 
 require('./database');
 
 app.use(cookieParser());
 
-app.use(session({ secret: 'ABRACADABRA', resave: false, saveUninitialized: false }));
+//session saved in database
+app.use(session({
+    secret: 'ABRACADABRA', resave: false, saveUninitialized: false, store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost:27017/expressjs_tutorial',
+    })
+}));
+
 app.use(express.json());
+
 app.use((req, res, next) => {
     console.log(`${req.method}:${req.url}`);
     next();
 });
+
+app.use((req, res, next) => {
+    console.log(memoryStore);
+    next();
+})
 
 //the order is important
 
